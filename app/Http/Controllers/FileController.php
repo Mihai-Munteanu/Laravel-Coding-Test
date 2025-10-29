@@ -21,9 +21,7 @@ class FileController extends Controller
                 AllowedFilter::exact('mime_type'),
                 AllowedFilter::partial('name'),
                 AllowedFilter::partial('description'),
-                AllowedFilter::scope('size_range', 'sizeBetween'),
-                AllowedFilter::scope('created_after', 'createdAfter'),
-                AllowedFilter::scope('created_before', 'createdBefore'),
+                AllowedFilter::scope('created_on', 'createdOn'),
             ])
             ->allowedSorts([
                 AllowedSort::field('name'),

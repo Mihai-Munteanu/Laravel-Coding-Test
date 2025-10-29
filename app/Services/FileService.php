@@ -35,14 +35,14 @@ class FileService
      */
     public function deleteFile(File $file): bool
     {
-        // Delete from storage
-        if (Storage::disk('public')->exists($file->path)) {
-            if (!Storage::disk('public')->delete($file->path)) {
-                throw new \Exception('Failed to delete file from storage.');
-            }
+        if (!Storage::disk('public')->exists($file->path)) {
+            throw new \Exception('File not found in storage.');
         }
 
-        // Delete from database
+        if (!Storage::disk('public')->delete($file->path)) {
+            throw new \Exception('Failed to delete file from storage.');
+        }
+
         if (!$file->delete()) {
             throw new \Exception('Failed to delete file from database.');
         }
