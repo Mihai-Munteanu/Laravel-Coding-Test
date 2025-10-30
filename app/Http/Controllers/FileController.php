@@ -24,7 +24,9 @@ class FileController extends Controller
                 AllowedFilter::scope('created_on', 'createdOn'),
             ])
             ->allowedSorts([
-                AllowedSort::field('name'),
+                AllowedSort::callback('name', function ($query, bool $descending, string $property) {
+                    $query->orderByRaw('LOWER(name) ' . ($descending ? 'DESC' : 'ASC'));
+                }),
                 AllowedSort::field('size'),
                 AllowedSort::field('created_at'),
                 AllowedSort::field('updated_at'),
