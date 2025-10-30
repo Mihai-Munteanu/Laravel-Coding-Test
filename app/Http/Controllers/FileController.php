@@ -63,6 +63,18 @@ class FileController extends Controller
         ]);
     }
 
+    public function download(File $file, FileService $fileService)
+    {
+        if (!Storage::disk('public')->exists($file->path)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'File not found in storage.'
+            ], 404);
+        }
+
+        return $fileService->getDownloadResponse($file);
+    }
+
     public function destroy(File $file, FileService $fileService): JsonResponse
     {
         try {

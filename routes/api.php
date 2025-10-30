@@ -17,4 +17,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/files', [FileController::class, 'index']);
 Route::post('/files', [FileController::class, 'store'])->middleware('token.auth');
 Route::get('/files/{file}', [FileController::class, 'show']);
+Route::get('/files/{file}/download', [FileController::class, 'download']);
 Route::delete('/files/{file}', [FileController::class, 'destroy'])->middleware('token.auth');
