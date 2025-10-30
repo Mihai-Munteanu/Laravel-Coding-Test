@@ -151,10 +151,10 @@ class FileDestroyTest extends TestCase
             'Authorization' => self::VALID_TOKEN
         ]);
 
-        $response->assertStatus(500)
+        $response->assertStatus(409)
             ->assertJson([
                 'success' => false,
-                'message' => 'Failed to delete file. Please try again.'
+                'message' => 'File not found in storage.'
             ]);
 
         $this->assertDatabaseHas('files', [

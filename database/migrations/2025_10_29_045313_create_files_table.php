@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('files', function (Blueprint $table) {
             $table->id();
             $table->string('name')->index();
-            $table->string('path')->index();
+            $table->string('path')->unique();
             $table->string('mime_type')->index();
-            $table->bigInteger('size');
+            $table->unsignedBigInteger('size')->index();
             $table->text('description')->nullable();
             $table->timestamps();
+            $table->index('created_at');
         });
     }
 

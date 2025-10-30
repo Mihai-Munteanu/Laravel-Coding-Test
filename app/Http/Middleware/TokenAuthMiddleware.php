@@ -16,8 +16,9 @@ class TokenAuthMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         $token = $request->bearerToken();
+        $expected = (string) config('files.api_token', 'artificially-token');
 
-        if ($token !== 'artificially-token') {
+        if (!is_string($token) || !hash_equals($expected, $token)) {
             return response()->json([
                 'success' => false,
                 'message' => 'Unauthorized. Invalid or missing token.'

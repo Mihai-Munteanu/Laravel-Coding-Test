@@ -85,6 +85,13 @@ class FileController extends Controller
                 'message' => 'File deleted successfully.'
             ]);
         } catch (\Exception $e) {
+            if ($e->getMessage() === 'File not found in storage.') {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'File not found in storage.'
+                ], 409);
+            }
+
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to delete file. Please try again.'
